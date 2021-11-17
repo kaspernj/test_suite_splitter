@@ -3,7 +3,7 @@
 Add it to your Gemfile:
 ```ruby
 group :test do
-  gem "test_suite_splitter"
+  gem "test_suite_splitter", require: false
 end
 ```
 
