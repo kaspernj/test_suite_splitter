@@ -139,6 +139,7 @@ private
     @dry_result ||= begin
       require "json"
       require "rspec/core"
+      require "stringio"
 
       output_capture = StringIO.new
       RSpec::Core::Runner.run(rspec_options, $stderr, output_capture)
