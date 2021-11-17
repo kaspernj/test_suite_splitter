@@ -34,7 +34,8 @@ Gem::Specification.new do |s|
     "peak_flow.yml",
     "spec/spec_helper.rb",
     "spec/test_suite_splitter/rspec_helper/nemoa_rspec_output.json",
-    "spec/test_suite_splitter/rspec_helper_spec.rb"
+    "spec/test_suite_splitter/rspec_helper_spec.rb",
+    "test_suite_splitter.gemspec"
   ]
   s.homepage = "http://github.com/kaspernj/test_suite_splitter".freeze
   s.licenses = ["MIT".freeze]
