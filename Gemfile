@@ -7,7 +7,7 @@ source "https://rubygems.org"
 # Include everything needed to run rake, tests, features, etc.
 group :development do
   gem "bundler"
-  gem "juwelier", "~> 2.1.0"
+  gem "juwelier"
 end
 
 group :development, :test do

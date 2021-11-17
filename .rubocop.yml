@@ -71,14 +71,17 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Max: 250
 
-# Metrics/CyclomaticComplexity:
-#   Max: 10
+Metrics/AbcSize:
+  Max: 29
+
+Metrics/CyclomaticComplexity:
+  Max: 13
 
 Metrics/MethodLength:
   Max: 50
 
-# Metrics/PerceivedComplexity:
-#   Max: 10
+Metrics/PerceivedComplexity:
+  Max: 15
 
 RSpec/AnyInstance:
   Enabled: false
