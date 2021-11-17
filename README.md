@@ -1,8 +1,23 @@
-= test_suite_splitter
+# test_suite_splitter
 
-Description goes here.
+Add it to your Gemfile:
+```ruby
+group :test do
+  gem "test_suite_splitter"
+end
+```
 
-== Contributing to test_suite_splitter
+Change your CI configuration file to execute something like this:
+```bash
+bundle exec rspec `bundle exec test_suite_splitter --groups=6 --group-number=3`
+```
+
+Or Semaphore that could be done dynamically like this:
+```bash
+bundle exec rspec `bundle exec test_suite_splitter --groups=${SEMAPHORE_JOB_COUNT} --group-number=${SEMAPHORE_JOB_INDEX}`
+```
+
+## Contributing to test_suite_splitter
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
@@ -12,7 +27,7 @@ Description goes here.
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
-== Copyright
+## Copyright
 
 Copyright (c) 2021 kaspernj. See LICENSE.txt for
 further details.
