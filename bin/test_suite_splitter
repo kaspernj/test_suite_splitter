@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+# This task detects and prints out the RSpec files for the current build group
+
+require "#{__dir__}/../lib/test_suite_splitter"
+
+args = {}
+ARGV.each do |arg|
+  if (match = arg.match(/\A--(.+?)=(.+)\Z/))
+    args[match[1]] = match[2]
+  end
+end
+
+rspec_helper = ::TestSuiteSplitter::RspecHelper.new(
+  groups: args.fetch("groups").to_i,
+  group_number: args.fetch("group-number").to_i,
+  only_types: args["only-types"]&.split(","),
+  tags: args["tags"]&.split(",")
+)
+
+print rspec_helper.group_files.map { |group_file| group_file.fetch(:path) }.join(" ")
