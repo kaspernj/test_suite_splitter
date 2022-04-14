@@ -21,8 +21,8 @@ describe TestSuiteSplitter::RspecHelper do
     ignore_models = helper.__send__(:ignore_type?, "models")
     ignore_system = helper.__send__(:ignore_type?, "system")
 
-    expect(ignore_models).to eq false
-    expect(ignore_system).to eq true
+    expect(ignore_models).to be false
+    expect(ignore_system).to be true
   end
 
   it "selects only given types" do
@@ -31,16 +31,16 @@ describe TestSuiteSplitter::RspecHelper do
     ignore_models = helper.__send__(:ignore_type?, "models")
     ignore_system = helper.__send__(:ignore_type?, "system")
 
-    expect(ignore_models).to eq true
-    expect(ignore_system).to eq false
+    expect(ignore_models).to be true
+    expect(ignore_system).to be false
   end
 
   describe "#ignore_type?" do
     it "ignores types not given" do
       helper = TestSuiteSplitter::RspecHelper.new(groups: 1, group_number: 1, only_types: ["system"])
 
-      expect(helper.__send__(:ignore_type?, "system")).to eq false
-      expect(helper.__send__(:ignore_type?, "model")).to eq true
+      expect(helper.__send__(:ignore_type?, "system")).to be false
+      expect(helper.__send__(:ignore_type?, "model")).to be true
     end
   end
 

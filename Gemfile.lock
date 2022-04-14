@@ -1,79 +1,17 @@
+PATH
+  remote: .
+  specs:
+    test_suite_splitter (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.8.0)
-      public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.2)
-    builder (3.2.4)
-    descendants_tracker (0.0.4)
-      thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.4.4)
-    faraday (1.8.0)
-      faraday-em_http (~> 1.0)
-      faraday-em_synchrony (~> 1.0)
-      faraday-excon (~> 1.1)
-      faraday-httpclient (~> 1.0.1)
-      faraday-net_http (~> 1.0)
-      faraday-net_http_persistent (~> 1.1)
-      faraday-patron (~> 1.0)
-      faraday-rack (~> 1.0)
-      multipart-post (>= 1.2, < 3)
-      ruby2_keywords (>= 0.0.4)
-    faraday-em_http (1.0.0)
-    faraday-em_synchrony (1.0.0)
-    faraday-excon (1.1.0)
-    faraday-httpclient (1.0.1)
-    faraday-net_http (1.0.1)
-    faraday-net_http_persistent (1.2.0)
-    faraday-patron (1.0.0)
-    faraday-rack (1.0.0)
-    git (1.9.1)
-      rchardet (~> 1.8)
-    github_api (0.19.0)
-      addressable (~> 2.4)
-      descendants_tracker (~> 0.0.4)
-      faraday (>= 0.8, < 2)
-      hashie (~> 3.5, >= 3.5.2)
-      oauth2 (~> 1.0)
-    hashie (3.6.0)
-    highline (2.0.3)
-    juwelier (2.4.9)
-      builder
-      bundler
-      git
-      github_api
-      highline
-      kamelcase (~> 0)
-      nokogiri
-      psych
-      rake
-      rdoc
-      semver2
-    jwt (2.3.0)
-    kamelcase (0.0.2)
-      semver2 (~> 3)
-    multi_json (1.15.0)
-    multi_xml (0.6.0)
-    multipart-post (2.1.1)
-    nokogiri (1.12.5-x86_64-linux)
-      racc (~> 1.4)
-    oauth2 (1.4.7)
-      faraday (>= 0.8, < 2.0)
-      jwt (>= 1.0, < 3.0)
-      multi_json (~> 1.3)
-      multi_xml (~> 0.5)
-      rack (>= 1.2, < 3)
     parallel (1.22.1)
     parser (3.1.2.0)
       ast (~> 2.4.1)
-    psych (4.0.2)
-    public_suffix (4.0.6)
-    racc (1.6.0)
-    rack (2.2.3)
     rainbow (3.1.1)
-    rake (13.0.6)
-    rchardet (1.8.0)
-    rdoc (6.3.3)
     regexp_parser (2.3.0)
     rexml (3.2.5)
     rspec (3.10.0)
@@ -106,9 +44,6 @@ GEM
     rubocop-rspec (2.9.0)
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
-    ruby2_keywords (0.0.5)
-    semver2 (3.4.2)
-    thread_safe (0.3.6)
     unicode-display_width (2.1.0)
 
 PLATFORMS
@@ -116,11 +51,11 @@ PLATFORMS
 
 DEPENDENCIES
   bundler
-  juwelier
   rspec
   rubocop
   rubocop-performance
   rubocop-rspec
+  test_suite_splitter!
 
 BUNDLED WITH
-   2.2.28
+   2.3.8

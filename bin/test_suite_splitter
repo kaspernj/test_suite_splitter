@@ -6,21 +6,22 @@ require "#{__dir__}/../lib/test_suite_splitter"
 
 args = {}
 ARGV.each do |arg|
-  if (match = arg.match(/\A--(.+?)=(.+)\Z/))
-    key = match[1]
-    hash_key = key.gsub("-", "_").to_sym
-    value = match[2]
+  match = arg.match(/\A--(.+?)=(.+)\Z/)
+  raise "Couldn't match argument: #{arg}" unless match
 
-    if key == "exclude-types" || key == "only-types" || key == "tags"
-      value = value.split(",")
-    elsif key == "group-number" || key == "groups"
-      value = value.to_i
-    else
-      raise "Unknown argument: #{key}"
-    end
+  key = match[1]
+  hash_key = key.tr("-", "_").to_sym
+  value = match[2]
 
-    args[hash_key] = value
+  if key == "exclude-types" || key == "only-types" || key == "tags"
+    value = value.split(",")
+  elsif key == "group-number" || key == "groups"
+    value = value.to_i
+  else
+    raise "Unknown argument: #{key}"
   end
+
+  args[hash_key] = value
 end
 
 rspec_helper = ::TestSuiteSplitter::RspecHelper.new(**args)

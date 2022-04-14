@@ -1,7 +1,7 @@
 class TestSuiteSplitter::RspecHelper
   attr_reader :exclude_types, :only_types, :tags
 
-  def initialize(exclude_types: nil, groups:, group_number:, only_types: nil, tags: nil)
+  def initialize(groups:, group_number:, exclude_types: nil, only_types: nil, tags: nil)
     @exclude_types = exclude_types
     @groups = groups
     @group_number = group_number
@@ -179,7 +179,7 @@ private
 
   def ignore_type?(type)
     return true if only_types && !only_types.include?(type)
-    return true if exclude_types && exclude_types.include?(type)
+    return true if exclude_types&.include?(type)
 
     false
   end
