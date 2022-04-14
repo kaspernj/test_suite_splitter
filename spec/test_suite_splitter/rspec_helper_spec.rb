@@ -15,6 +15,16 @@ describe TestSuiteSplitter::RspecHelper do
     end
   end
 
+  it "excludes types" do
+    helper = TestSuiteSplitter::RspecHelper.new(exclude_types: ["system"], groups: 4, group_number: 2)
+
+    ignore_models = helper.__send__(:ignore_type?, "models")
+    ignore_system = helper.__send__(:ignore_type?, "system")
+
+    expect(ignore_models).to eq false
+    expect(ignore_system).to eq true
+  end
+
   it "selects only given types" do
     helper = TestSuiteSplitter::RspecHelper.new(groups: 4, group_number: 2, only_types: ["system"])
 
