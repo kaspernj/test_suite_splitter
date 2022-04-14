@@ -23,8 +23,6 @@ ARGV.each do |arg|
   end
 end
 
-pp args
-
 rspec_helper = ::TestSuiteSplitter::RspecHelper.new(**args)
 
 print rspec_helper.group_files.map { |group_file| group_file.fetch(:path) }.join(" ")
