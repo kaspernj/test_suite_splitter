@@ -8,14 +8,14 @@ builds:
       - bundle exec rspec
   build_2:
     environment:
-      RUBY_VERSION: 2.6.7
-    name: Ruby 2.6.7
+      RUBY_VERSION: 2.6.8
+    name: Ruby 2.6.8
     script:
       - bundle exec rspec
   build_3:
     environment:
-      RUBY_VERSION: 2.7.6
-    name: Ruby 2.7.6
+      RUBY_VERSION: 2.7.5
+    name: Ruby 2.7.5
     script:
       - bundle exec rspec
   build_4:
@@ -26,8 +26,8 @@ builds:
       - bundle exec rspec
   build_5:
     environment:
-      RUBY_VERSION: 3.1.2
-    name: Ruby 3.1.2
+      RUBY_VERSION: 3.1.1
+    name: Ruby 3.1.1
     script:
       - bundle exec rspec
   build_6:
