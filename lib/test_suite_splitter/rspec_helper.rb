@@ -1,7 +1,8 @@
 class TestSuiteSplitter::RspecHelper
-  attr_reader :only_types, :tags
+  attr_reader :exclude_types, :only_types, :tags
 
-  def initialize(groups:, group_number:, only_types: nil, tags: nil)
+  def initialize(exclude_types: nil, groups:, group_number:, only_types: nil, tags: nil)
+    @exclude_types = exclude_types
     @groups = groups
     @group_number = group_number
     @example_data_exists = File.exist?("spec/examples.txt")
@@ -177,7 +178,10 @@ private
   end
 
   def ignore_type?(type)
-    only_types && !only_types.include?(type) # rubocop:disable: Style/SafeNavigation
+    return true if only_types && !only_types.include?(type)
+    return true if exclude_types && exclude_types.include?(type)
+
+    false
   end
 
   def points_from_type(type)
