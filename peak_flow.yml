@@ -1,4 +1,30 @@
 rvm: true
-script:
-  - bundle exec rspec
-  - bundle exec rubocop
+builds:
+  build_1:
+    environment:
+      RUBY_VERSION: 2.5.9
+    name: Ruby 2.5.9
+    script:
+      - bundle exec rspec
+  build_2:
+    environment:
+      RUBY_VERSION: 2.6.8
+    name: Ruby 2.6.8
+    script:
+      - bundle exec rspec
+  build_3:
+    environment:
+      RUBY_VERSION: 2.7.5
+    name: Ruby 2.7.5
+    script:
+      - bundle exec rspec
+  build_4:
+    environment:
+      RUBY_VERSION: 3.0.3
+    name: Ruby 3.0.3
+    script:
+      - bundle exec rspec
+  build_5:
+    name: Rubocop
+    script:
+      - bundle exec rubocop
