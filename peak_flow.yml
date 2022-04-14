@@ -25,12 +25,6 @@ builds:
     script:
       - bundle exec rspec
   build_5:
-    environment:
-      RUBY_VERSION: 3.1.1
-    name: Ruby 3.1.1
-    script:
-      - bundle exec rspec
-  build_6:
     name: Rubocop
     script:
       - bundle exec rubocop
