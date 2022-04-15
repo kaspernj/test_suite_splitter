@@ -12,9 +12,19 @@ Change your CI configuration file to execute something like this:
 bundle exec rspec `bundle exec test_suite_splitter --groups=6 --group-number=3`
 ```
 
-Or Semaphore that could be done dynamically like this:
+On Semaphore that could be done dynamically like this:
 ```bash
 bundle exec rspec `bundle exec test_suite_splitter --groups=${SEMAPHORE_JOB_COUNT} --group-number=${SEMAPHORE_JOB_INDEX}`
+```
+
+Run only a certain type of specs:
+```bash
+bundle exec rspec `bundle exec test_suite_splitter --groups=6 --group-number=3 --only-types=system,model`
+```
+
+Exclude a certain type of specs:
+```bash
+bundle exec rspec `bundle exec test_suite_splitter --groups=6 --group-number=3 --exclude-types=system,feature`
 ```
 
 ## Contributing to test_suite_splitter
