@@ -162,9 +162,7 @@ private
       result = {}
       dry_result.fetch("examples").each do |example|
         file_path_id = example.fetch("id")
-        file_path = example.fetch("file_path")
-
-        next if example.fetch("description") != "views the fixed content and submits answers"
+        file_path = file_path_id.gsub(/\[([\d:]+)\]$/, "") # Same as ID but remove any [1:2:3] at the end
 
         file_path = file_path[2, file_path.length]
         type = type_from_path(file_path_id)
