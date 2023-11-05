@@ -161,9 +161,13 @@ private
     @files ||= begin
       result = {}
       dry_result.fetch("examples").each do |example|
+        file_path_id = example.fetch("id")
         file_path = example.fetch("file_path")
+
+        next if example.fetch("description") != "views the fixed content and submits answers"
+
         file_path = file_path[2, file_path.length]
-        type = type_from_path(file_path)
+        type = type_from_path(file_path_id)
         points = points_from_type(type)
 
         next if ignore_type?(type)
@@ -185,7 +189,9 @@ private
   end
 
   def points_from_type(type)
-    if type == "feature" || type == "system"
+    if type == "system"
+      20
+    elsif type == "feature"
       10
     elsif type == "controllers"
       3
@@ -208,7 +214,7 @@ private
   end
 
   def type_from_path(file_path)
-    match = file_path.match(/^spec\/(.+?)\//)
+    match = file_path.match(/^\.\/spec\/(.+?)\//)
     match[1] if match
   end
 end
