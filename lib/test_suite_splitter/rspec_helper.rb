@@ -147,7 +147,7 @@ private
 
       result = ::JSON.parse(output_capture.string)
 
-      raise dry_run_error_message(result:, exit_code:) if result.fetch("examples").empty?
+      raise dry_run_error_message(result: result, exit_code: exit_code) if result.fetch("examples").empty?
 
       result
     end
