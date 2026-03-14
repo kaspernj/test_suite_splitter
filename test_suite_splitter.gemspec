@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "test_suite_splitter".freeze
-  s.version = "0.0.2"
+  s.version = File.read(File.expand_path("VERSION", __dir__)).strip
 
   s.required_ruby_version = ">= 2.5.0"
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("base64".freeze, [">= 0"])
   s.add_development_dependency("bundler".freeze, [">= 0"])
   s.add_development_dependency("racc".freeze, [">= 0"])
+  s.add_development_dependency("rake".freeze, [">= 0"])
   s.add_development_dependency("rspec".freeze, [">= 0"])
   s.add_development_dependency("rubocop".freeze, [">= 0"])
   s.add_development_dependency("rubocop-performance".freeze, [">= 0"])

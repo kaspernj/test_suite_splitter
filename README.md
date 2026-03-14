@@ -27,6 +27,13 @@ Exclude a certain type of specs:
 bundle exec rspec `bundle exec test_suite_splitter --groups=6 --group-number=3 --exclude-types=system,feature`
 ```
 
+Release a new gem version:
+```bash
+bundle exec rake release:patch
+```
+
+`release:path` is available as an alias for the same flow.
+
 ## Contributing to test_suite_splitter
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
