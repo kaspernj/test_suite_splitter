@@ -44,6 +44,19 @@ describe TestSuiteSplitter::RspecHelper do
     end
   end
 
+  describe "#ignore_path?" do
+    it "ignores files matching excluded path prefixes" do
+      helper = TestSuiteSplitter::RspecHelper.new(
+        exclude_path_prefixes: ["spec/system/projects/project_environments_terminal_e2e_spec/"],
+        groups: 1,
+        group_number: 1
+      )
+
+      expect(helper.__send__(:ignore_path?, "spec/system/projects/project_environments_terminal_e2e_spec/test_spec.rb")).to be true
+      expect(helper.__send__(:ignore_path?, "spec/system/projects/show_spec.rb")).to be false
+    end
+  end
+
   describe "#sorted_files" do
     it "falls back to sort the files by name" do
       helper = TestSuiteSplitter::RspecHelper.new(groups: 4, group_number: 2)

@@ -1,13 +1,14 @@
 class TestSuiteSplitter::RspecHelper
-  attr_reader :exclude_types, :only_types, :tags
+  attr_reader :exclude_path_prefixes, :exclude_types, :only_types, :tags
 
-  def initialize(groups:, group_number:, exclude_types: nil, only_types: nil, tags: nil)
-    @exclude_types = exclude_types
+  def initialize(groups:, group_number:, **options)
+    @exclude_path_prefixes = options[:exclude_path_prefixes]
+    @exclude_types = options[:exclude_types]
     @groups = groups
     @group_number = group_number
     @example_data_exists = File.exist?("spec/examples.txt")
-    @only_types = only_types
-    @tags = tags
+    @only_types = options[:only_types]
+    @tags = options[:tags]
   end
 
   def example_data_exists?
@@ -168,6 +169,7 @@ private
         type = type_from_path(file_path_id)
         points = points_from_type(type)
 
+        next if ignore_path?(file_path)
         next if ignore_type?(type)
 
         result[file_path] = {examples: 0, path: file_path, points: 0, type: type} unless result.key?(file_path)
@@ -184,6 +186,12 @@ private
     return true if exclude_types&.include?(type)
 
     false
+  end
+
+  def ignore_path?(file_path)
+    exclude_path_prefixes&.any? do |exclude_path_prefix|
+      file_path.start_with?(exclude_path_prefix)
+    end
   end
 
   def points_from_type(type)

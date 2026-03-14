@@ -4,31 +4,4 @@
 
 require "#{__dir__}/../lib/test_suite_splitter"
 
-args = {}
-ARGV.each do |arg|
-  match = arg.match(/\A--(.+?)=(.+)\Z/)
-  raise "Couldn't match argument: #{arg}" unless match
-
-  key = match[1]
-  hash_key = key.tr("-", "_").to_sym
-  value = match[2]
-
-  if key == "exclude-types" || key == "only-types" || key == "tags"
-    value = value.split(",")
-  elsif key == "group-number" || key == "groups"
-    value = value.to_i
-  else
-    raise "Unknown argument: #{key}"
-  end
-
-  args[hash_key] = value
-end
-
-begin
-  rspec_helper = ::TestSuiteSplitter::RspecHelper.new(**args)
-
-  print rspec_helper.group_files.map { |group_file| group_file.fetch(:path) }.join(" ")
-rescue StandardError => e
-  puts e.message
-  exit 1
-end
+exit(TestSuiteSplitter::Cli.new(argv: ARGV).execute_splitter_command)
