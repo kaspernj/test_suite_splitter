@@ -1,4 +1,6 @@
 class TestSuiteSplitter::Cli
+  DEFAULT_LOG_FILE_PATH = "log/test_suite_splitter.log".freeze
+
   attr_reader :argv, :stderr, :stdout
 
   def initialize(argv:, stderr: $stderr, stdout: $stdout)
@@ -56,7 +58,7 @@ private
   end
 
   def log_file_path
-    parsed_arguments.fetch(:log_file)
+    @parsed_arguments&.fetch(:log_file) || DEFAULT_LOG_FILE_PATH
   end
 
   def rspec_helper
@@ -76,7 +78,7 @@ private
       result = {
         exclude_path_prefixes: nil,
         exclude_types: nil,
-        log_file: "log/test_suite_splitter.log",
+        log_file: DEFAULT_LOG_FILE_PATH,
         only_types: nil,
         rspec_arguments: [],
         tags: nil
