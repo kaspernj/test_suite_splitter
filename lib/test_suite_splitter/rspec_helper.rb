@@ -143,11 +143,11 @@ private
       require "stringio"
 
       output_capture = StringIO.new
-      RSpec::Core::Runner.run(rspec_options, $stderr, output_capture)
+      exit_code = RSpec::Core::Runner.run(rspec_options, $stderr, output_capture)
 
       result = ::JSON.parse(output_capture.string)
 
-      raise "No examples were found" if result.fetch("examples").empty?
+      raise dry_run_error_message(result: result, exit_code: exit_code) if result.fetch("examples").empty?
 
       result
     end
@@ -209,6 +209,19 @@ private
     rspec_options << "spec"
 
     rspec_options
+  end
+
+  def dry_run_error_message(result:, exit_code:)
+    error_summary = []
+    errors_outside_of_examples_count = result.dig("summary", "errors_outside_of_examples_count")
+
+    error_summary << "exit_code=#{exit_code}"
+    error_summary << "errors_outside_of_examples_count=#{errors_outside_of_examples_count}" if errors_outside_of_examples_count.to_i.positive?
+
+    first_message = result.fetch("messages", []).find { |message| message.strip != "" }
+    details = first_message&.strip || "No examples were found"
+
+    "RSpec dry-run failed (#{error_summary.join(', ')})\n\n#{details}"
   end
 
   def type_from_path(file_path)

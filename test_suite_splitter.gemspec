@@ -22,7 +22,9 @@ Gem::Specification.new do |s|
   s.metadata = {"rubygems_mfa_required" => "true"}
   s.specification_version = 4 if s.respond_to? :specification_version
 
+  s.add_development_dependency("base64".freeze, [">= 0"])
   s.add_development_dependency("bundler".freeze, [">= 0"])
+  s.add_development_dependency("racc".freeze, [">= 0"])
   s.add_development_dependency("rspec".freeze, [">= 0"])
   s.add_development_dependency("rubocop".freeze, [">= 0"])
   s.add_development_dependency("rubocop-performance".freeze, [">= 0"])
