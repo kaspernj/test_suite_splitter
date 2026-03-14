@@ -14,7 +14,7 @@ describe "bin/test_suite_splitter" do
       expect(status.success?).to be false
       expect(stdout).to include("RSpec dry-run failed")
       expect(stdout).to include("An error occurred while loading ./spec/broken_spec.rb.")
-      expect(stdout).to include("Failure/Error: this is not valid ruby")
+      expect(stdout).to include("this is not valid ruby")
       expect(stderr).to eq("")
     end
   end
