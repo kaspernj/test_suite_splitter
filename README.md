@@ -12,6 +12,11 @@ Change your CI configuration file to execute something like this:
 bundle exec rspec `bundle exec test_suite_splitter --groups=6 --group-number=3`
 ```
 
+Or let `test_suite_splitter` run RSpec directly:
+```bash
+bundle exec test_suite_splitter_rspec --groups=6 --group-number=3 -- --format documentation
+```
+
 On Semaphore that could be done dynamically like this:
 ```bash
 bundle exec rspec `bundle exec test_suite_splitter --groups=${SEMAPHORE_JOB_COUNT} --group-number=${SEMAPHORE_JOB_INDEX}`
@@ -26,6 +31,13 @@ Exclude a certain type of specs:
 ```bash
 bundle exec rspec `bundle exec test_suite_splitter --groups=6 --group-number=3 --exclude-types=system,feature`
 ```
+
+Exclude file paths by prefix:
+```bash
+bundle exec test_suite_splitter_rspec --groups=6 --group-number=3 --exclude-path-prefixes=spec/system/projects/project_environments_terminal_e2e_spec/ -- --format documentation
+```
+
+When the dry run fails, `test_suite_splitter` writes the failure output to `log/test_suite_splitter.log` by default. Override that path with `--log-file=path/to/file.log`.
 
 Release a new gem version:
 ```bash

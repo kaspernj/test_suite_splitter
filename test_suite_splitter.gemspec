@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.authors = ["kaspernj".freeze]
   s.description = "Split your RSpec test suite up into several groups and run them in parallel.".freeze
   s.email = "k@spernj.org".freeze
-  s.executables = ["test_suite_splitter".freeze]
+  s.executables = ["test_suite_splitter".freeze, "test_suite_splitter_rspec".freeze]
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.md"
