@@ -216,7 +216,7 @@ private
     errors_outside_of_examples_count = result.dig("summary", "errors_outside_of_examples_count")
 
     error_summary << "exit_code=#{exit_code}"
-    error_summary << "errors_outside_of_examples_count=#{errors_outside_of_examples_count}" if errors_outside_of_examples_count.to_i > 0
+    error_summary << "errors_outside_of_examples_count=#{errors_outside_of_examples_count}" if errors_outside_of_examples_count.to_i.positive?
 
     first_message = result.fetch("messages", []).find { |message| message.strip != "" }
     details = first_message&.strip || "No examples were found"
