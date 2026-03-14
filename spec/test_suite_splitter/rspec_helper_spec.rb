@@ -104,4 +104,24 @@ describe TestSuiteSplitter::RspecHelper do
       end
     end
   end
+
+  describe "#dry_result" do
+    it "includes the first rspec load error in the raised message" do
+      helper = TestSuiteSplitter::RspecHelper.new(groups: 1, group_number: 1)
+      result = {
+        "examples" => [],
+        "messages" => ["\nAn error occurred while loading ./spec/example_spec.rb.\nFailure/Error: boom\n"],
+        "summary" => {
+          "errors_outside_of_examples_count" => 1
+        }
+      }
+
+      allow(RSpec::Core::Runner).to receive(:run).and_return(1)
+      allow(JSON).to receive(:parse).and_return(result)
+
+      expect do
+        helper.__send__(:dry_result)
+      end.to raise_error(RuntimeError, /An error occurred while loading \.\/spec\/example_spec\.rb/)
+    end
+  end
 end

@@ -24,6 +24,11 @@ ARGV.each do |arg|
   args[hash_key] = value
 end
 
-rspec_helper = ::TestSuiteSplitter::RspecHelper.new(**args)
+begin
+  rspec_helper = ::TestSuiteSplitter::RspecHelper.new(**args)
 
-print rspec_helper.group_files.map { |group_file| group_file.fetch(:path) }.join(" ")
+  print rspec_helper.group_files.map { |group_file| group_file.fetch(:path) }.join(" ")
+rescue StandardError => error
+  puts error.message
+  exit 1
+end
