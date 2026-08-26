@@ -76,6 +76,7 @@ class TestSuiteSplitter::RspecHelper
       group[:examples] += examples
       group[:files] << file
       group[:seconds] += seconds if seconds
+      group[:weight] += file_weight(file, file_data)
     end
 
     @group_files = group_orders[@group_number - 1].fetch(:files)
@@ -88,7 +89,8 @@ class TestSuiteSplitter::RspecHelper
         group_orders << {
           examples: 0,
           files: [],
-          seconds: 0.0
+          seconds: 0.0,
+          weight: 0.0
         }
       end
       group_orders
@@ -96,13 +98,7 @@ class TestSuiteSplitter::RspecHelper
   end
 
   def group_with_least
-    group_orders.min do |group1, group2|
-      if example_data_exists? && group1.fetch(:seconds) != 0.0 && group2.fetch(:seconds) != 0.0
-        group1.fetch(:seconds) <=> group2.fetch(:seconds)
-      else
-        group1.fetch(:examples) <=> group2.fetch(:examples)
-      end
-    end
+    group_orders.min_by { |group| group.fetch(:weight) }
   end
 
   # Sort them so that they are sorted by file path in three groups so each group have an equal amount of controller specs, features specs and so on
@@ -114,17 +110,8 @@ class TestSuiteSplitter::RspecHelper
       file1_data = example_file(file1_path) if example_data_exists?
       file2_data = example_file(file2_path) if example_data_exists?
 
-      if file1_data && file2_data && file1_data.fetch(:seconds) != 0.0 && file2_data.fetch(:seconds) != 0.0
-        value1 = file1_data[:seconds]
-      else
-        value1 = file1.fetch(:points)
-      end
-
-      if file2_data && file1_data && file2_data.fetch(:seconds) != 0.0 && file2_data.fetch(:seconds) != 0.0
-        value2 = file2_data[:seconds]
-      else
-        value2 = file2.fetch(:points)
-      end
+      value1 = file_weight(file1, file1_data)
+      value2 = file_weight(file2, file2_data)
 
       if value1 == value2
         value2 = file1_path
@@ -136,6 +123,13 @@ class TestSuiteSplitter::RspecHelper
   end
 
 private
+
+  def file_weight(file, file_data)
+    seconds = file_data&.fetch(:seconds)
+    return seconds if seconds&.positive?
+
+    file.fetch(:points)
+  end
 
   def dry_result
     @dry_result ||= begin
