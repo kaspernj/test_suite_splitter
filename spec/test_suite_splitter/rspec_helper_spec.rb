@@ -88,6 +88,27 @@ describe TestSuiteSplitter::RspecHelper do
       ]
     end
 
+    it "uses one weight metric when only some files have timing data" do
+      helper = TestSuiteSplitter::RspecHelper.new(groups: 2, group_number: 1)
+      files = {
+        "spec/system/fast_spec.rb" => {examples: 1, path: "spec/system/fast_spec.rb", points: 20},
+        "spec/system/slow_spec.rb" => {examples: 1, path: "spec/system/slow_spec.rb", points: 20},
+        "spec/system/untimed_spec.rb" => {examples: 1, path: "spec/system/untimed_spec.rb", points: 20}
+      }
+
+      allow(helper).to receive(:files).and_return(files)
+      allow(helper).to receive(:example_data_exists?).and_return(true)
+      allow(helper).to receive(:example_files).and_return(
+        "spec/system/fast_spec.rb" => {examples: 1, seconds: 1.0},
+        "spec/system/slow_spec.rb" => {examples: 1, seconds: 30.0}
+      )
+
+      helper.group_files
+
+      weights = helper.group_orders.map { |group| group.fetch(:weight) }
+      expect(weights).to contain_exactly(21.0, 30.0)
+    end
+
     it "doesnt duplicate the same specs in multiple groups" do
       require "json"
 
