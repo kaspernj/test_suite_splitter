@@ -96,12 +96,12 @@ describe TestSuiteSplitter::RspecHelper do
         "spec/system/untimed_spec.rb" => {examples: 1, path: "spec/system/untimed_spec.rb", points: 20}
       }
 
-      allow(helper).to receive(:files).and_return(files)
-      allow(helper).to receive(:example_data_exists?).and_return(true)
-      allow(helper).to receive(:example_files).and_return(
+      expect(helper).to receive(:files).once.and_return(files)
+      helper.instance_variable_set(:@example_data_exists, true)
+      helper.instance_variable_set(:@example_files, {
         "spec/system/fast_spec.rb" => {examples: 1, seconds: 1.0},
         "spec/system/slow_spec.rb" => {examples: 1, seconds: 30.0}
-      )
+      })
 
       helper.group_files
 
