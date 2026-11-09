@@ -30,6 +30,17 @@ builds:
     environment:
       RUBY_VERSION: 3.2.2
     name: Ruby 3.2.2
+    # Deny-list shape so an unlisted path still runs the lane: only paths proven not to be
+    # read by `bundle install` + `rspec` are negated. Gemfile, Gemfile.lock, the gemspec and
+    # VERSION are never negated because the install each lane runs is lockfile-driven.
+    paths:
+      - "**"
+      - "!.document"
+      - "!.github/**"
+      - "!.gitignore"
+      - "!LICENSE.txt"
+      - "!README.md"
+      - "!.rubocop.yml"
     script:
       - bundle install --jobs 6 --retry 3
       - bundle exec rspec
@@ -37,6 +48,14 @@ builds:
     environment:
       RUBY_VERSION: 3.3.10
     name: Ruby 3.3.10
+    paths:
+      - "**"
+      - "!.document"
+      - "!.github/**"
+      - "!.gitignore"
+      - "!LICENSE.txt"
+      - "!README.md"
+      - "!.rubocop.yml"
     script:
       - bundle install --jobs 6 --retry 3
       - bundle exec rspec
@@ -44,11 +63,31 @@ builds:
     environment:
       RUBY_VERSION: 3.4.10
     name: Ruby 3.4.10
+    paths:
+      - "**"
+      - "!.document"
+      - "!.github/**"
+      - "!.gitignore"
+      - "!LICENSE.txt"
+      - "!README.md"
+      - "!.rubocop.yml"
     script:
       - bundle install --jobs 6 --retry 3
       - bundle exec rspec
   build_4:
     name: Rubocop
+    # `.rubocop.yml` is not negated here: it is this lane's own configuration, so a change to
+    # it changes this lane's verdict. `spec/**/*.json` is negated because rubocop inspects only
+    # Ruby files (`bundle exec rubocop --list-target-files` lists no fixture), while the rspec
+    # lanes do read those fixtures and therefore keep them.
+    paths:
+      - "**"
+      - "!.document"
+      - "!.github/**"
+      - "!.gitignore"
+      - "!LICENSE.txt"
+      - "!README.md"
+      - "!spec/**/*.json"
     script:
       - bundle install --jobs 6 --retry 3
       - bundle exec rubocop
